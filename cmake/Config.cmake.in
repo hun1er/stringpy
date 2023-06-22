@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+if(NOT TARGET "StringPy::stringpy")
+  set_and_check(TARGETS_EXPORT_FILE "${CMAKE_CURRENT_LIST_DIR}/StringPyTargets.cmake")
+  include("${TARGETS_EXPORT_FILE}")
+endif()
+
+check_required_components("StringPy")
