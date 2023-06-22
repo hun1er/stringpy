@@ -1,0 +1,525 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "description": "Base configuration with common settings and options",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "warnings": {
+        "deprecated": true,
+        "dev": false,
+        "systemVars": true,
+        "uninitialized": false,
+        "unusedCli": false
+      },
+      "cacheVariables": {
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_CXX_STANDARD_REQUIRED": "ON",
+        "CMAKE_CXX_VISIBILITY_PRESET": "hidden",
+        "CMAKE_VISIBILITY_INLINES_HIDDEN": "ON",
+        "CMAKE_OPTIMIZE_DEPENDENCIES": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_POSITION_INDEPENDENT_CODE": "ON",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION": "ON",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG": "OFF",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE": "ON",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION_MINSIZEREL": "ON",
+        "CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO": "ON",
+        "CMAKE_POLICY_DEFAULT_CMP0051": "NEW",
+        "CMAKE_POLICY_DEFAULT_CMP0069": "NEW",
+        "CMAKE_POLICY_DEFAULT_CMP0077": "NEW",
+        "CMAKE_POLICY_DEFAULT_CMP0083": "NEW",
+        "CMAKE_POLICY_DEFAULT_CMP0092": "NEW",
+        "CMAKE_POLICY_DEFAULT_CMP0116": "NEW",
+        "CMAKE_POLICY_DEFAULT_CMP0117": "NEW",
+        "STRINGPY_INSTALL": "ON",
+        "STRINGPY_BUILD_DOCS": "OFF",
+        "STRINGPY_BUILD_EXAMPLES": "OFF",
+        "STRINGPY_BUILD_TESTS": "OFF",
+        "STRINGPY_SYSTEM_HEADERS": "ON"
+      },
+      "hidden": true
+    },
+    {
+      "name": "development",
+      "description": "Base configuration with additional warnings enabled",
+      "inherits": [ "base" ],
+      "warnings": {
+        "deprecated": true,
+        "dev": true,
+        "systemVars": true,
+        "uninitialized": false,
+        "unusedCli": false
+      },
+      "cacheVariables": {
+        "CMAKE_ERROR_DEPRECATED": "ON",
+        "STRINGPY_SYSTEM_HEADERS": "OFF"
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows",
+      "description": "Building on Windows systems",
+      "generator": "Ninja",
+      "cacheVariables": {
+        "CMAKE_C_SIMULATE_ID": "MSVC",
+        "CMAKE_CXX_SIMULATE_ID": "MSVC"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ]
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "linux",
+      "description": "Building on Linux systems",
+      "generator": "Unix Makefiles",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Linux" ]
+        },
+        "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+          "copySources": true,
+          "copyBuildOutput": true,
+          "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}",
+          "copySourcesOptions": {
+            "exclusionList": [ ".git", ".vs", "bin", "build", "out" ]
+          }
+        }
+      },
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "shared",
+      "description": "Building shared libraries",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "ON"
+      },
+      "hidden": true
+    },
+    {
+      "name": "static",
+      "description": "Building static libraries",
+      "cacheVariables": {
+        "BUILD_SHARED_LIBS": "OFF"
+      },
+      "hidden": true
+    },
+    {
+      "name": "debug",
+      "description": "Building with debug information",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "hidden": true
+    },
+    {
+      "name": "release",
+      "description": "Building with optimizations for release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      },
+      "hidden": true
+    },
+    {
+      "name": "msvc",
+      "description": "Building with the Microsoft Visual C++ compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl"
+      },
+      "hidden": true
+    },
+    {
+      "name": "clang-cl",
+      "description": "Building with the Clang-CL compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      },
+      "hidden": true
+    },
+    {
+      "name": "gcc",
+      "description": "Building with the GNU Compiler Collection",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      },
+      "hidden": true
+    },
+    {
+      "name": "clang",
+      "description": "Building with the Clang compiler",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows-shared",
+      "description": "Build as a shared library",
+      "inherits": [ "base", "windows", "shared" ]
+    },
+    {
+      "name": "windows-static",
+      "description": "Build as a static library",
+      "inherits": [ "base", "windows", "static" ]
+    },
+    {
+      "name": "windows-unit-tests",
+      "description": "Build as a static library with optimizations for release and unit tests enabled",
+      "inherits": [ "base", "windows", "static", "release" ],
+      "cacheVariables": {
+        "STRINGPY_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "linux-shared",
+      "description": "Build as a shared library",
+      "inherits": [ "base", "linux", "shared" ]
+    },
+    {
+      "name": "linux-static",
+      "description": "Build as a static library",
+      "inherits": [ "base", "linux", "static" ]
+    },
+    {
+      "name": "linux-unit-tests",
+      "description": "Build as a static library with optimizations for release and unit tests enabled",
+      "inherits": [ "base", "linux", "static", "release" ],
+      "cacheVariables": {
+        "STRINGPY_BUILD_TESTS": "ON"
+      }
+    },
+    {
+      "name": "doxygen",
+      "description": "Generate documentation using Doxygen",
+      "inherits": [ "base" ],
+      "cacheVariables": {
+        "STRINGPY_BUILD_DOCS": "ON"
+      }
+    },
+    {
+      "name": "examples",
+      "description": "Examples configuration with common settings and options",
+      "inherits": [ "base", "static" ],
+      "cacheVariables": {
+        "STRINGPY_BUILD_EXAMPLES": "ON"
+      },
+      "hidden": true
+    },
+    {
+      "name": "examples-dev",
+      "description": "Examples configuration with additional warnings enabled",
+      "inherits": [ "development", "static" ],
+      "cacheVariables": {
+        "STRINGPY_BUILD_EXAMPLES": "ON"
+      },
+      "hidden": true
+    },
+    {
+      "name": "examples-windows",
+      "description": "Build examples of using the StringPy library",
+      "inherits": [ "examples", "windows", "release" ]
+    },
+    {
+      "name": "examples-windows-cppcheck",
+      "description": "Build Examples with MSVC compiler and Cppcheck static analysis enabled",
+      "inherits": [ "examples-dev", "windows", "msvc", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_CPPCHECK": "ON"
+      }
+    },
+    {
+      "name": "examples-windows-pvs-studio",
+      "description": "Build Examples with MSVC compiler and PVS-Studio static analysis enabled",
+      "inherits": [ "examples-dev", "windows", "msvc", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_PVS_STUDIO": "ON"
+      }
+    },
+    {
+      "name": "examples-windows-clang-tidy",
+      "description": "Build Examples with Clang-CL compiler and Clang-Tidy static analysis enabled",
+      "inherits": [ "examples-dev", "windows", "clang-cl", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_CLANG_TIDY": "ON"
+      }
+    },
+    {
+      "name": "examples-linux",
+      "description": "Build examples of using the StringPy library",
+      "inherits": [ "examples", "linux", "release" ]
+    },
+    {
+      "name": "examples-linux-cppcheck",
+      "description": "Build Examples with GCC compiler and Cppcheck static analysis enabled",
+      "inherits": [ "examples-dev", "linux", "gcc", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_CPPCHECK": "ON"
+      }
+    },
+    {
+      "name": "examples-linux-pvs-studio",
+      "description": "Build Examples with GCC compiler and PVS-Studio static analysis enabled",
+      "inherits": [ "examples-dev", "linux", "gcc", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_PVS_STUDIO": "ON"
+      }
+    },
+    {
+      "name": "examples-linux-clang-tidy",
+      "description": "Build Examples with Clang compiler and Clang-Tidy static analysis enabled",
+      "inherits": [ "examples-dev", "linux", "clang", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_CLANG_TIDY": "ON"
+      }
+    },
+    {
+      "name": "examples-linux-iwyu",
+      "description": "Build Examples with Clang compiler and Include What You Use static analysis enabled",
+      "inherits": [ "examples-dev", "linux", "clang", "debug" ],
+      "cacheVariables": {
+        "STRINGPY_EXAMPLES_ENABLE_IWYU": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "base",
+      "description": "Base configuration with common settings and options",
+      "verbose": false,
+      "hidden": true
+    },
+    {
+      "name": "windows",
+      "description": "Building on Windows systems",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "linux",
+      "description": "Building on Linux systems",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows-shared",
+      "displayName": "Shared",
+      "description": "Build as a shared library",
+      "configurePreset": "windows-shared",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "stringpy" ]
+    },
+    {
+      "name": "windows-static",
+      "displayName": "Static",
+      "description": "Build as a static library",
+      "configurePreset": "windows-static",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "stringpy" ]
+    },
+    {
+      "name": "windows-unit-tests",
+      "displayName": "Unit Tests",
+      "description": "Build as a static library with optimizations for release and unit tests enabled",
+      "configurePreset": "windows-unit-tests",
+      "configuration": "Release",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "stringpy_tests" ]
+    },
+    {
+      "name": "linux-shared",
+      "displayName": "Shared",
+      "description": "Build as a shared library",
+      "configurePreset": "linux-shared",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy" ]
+    },
+    {
+      "name": "linux-static",
+      "displayName": "Static",
+      "description": "Build as a static library",
+      "configurePreset": "linux-static",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy" ]
+    },
+    {
+      "name": "linux-unit-tests",
+      "displayName": "Unit Tests",
+      "description": "Build as a static library with optimizations for release and unit tests enabled",
+      "configurePreset": "linux-unit-tests",
+      "configuration": "Release",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy_tests" ]
+    },
+    {
+      "name": "doxygen",
+      "displayName": "Doxygen",
+      "description": "Generate documentation using Doxygen",
+      "configurePreset": "doxygen",
+      "configuration": "Release",
+      "inherits": [ "base" ],
+      "targets": [ "stringpy_docs" ]
+    },
+    {
+      "name": "examples-windows",
+      "displayName": "Examples Release",
+      "description": "Build examples of using the StringPy library",
+      "configurePreset": "examples-windows",
+      "configuration": "Release",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "examples" ]
+    },
+    {
+      "name": "examples-windows-cppcheck",
+      "displayName": "Examples Cppcheck",
+      "description": "Build Examples with MSVC compiler and Cppcheck static analysis enabled",
+      "configurePreset": "examples-windows-cppcheck",
+      "configuration": "Debug",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "stringpy", "examples" ]
+    },
+    {
+      "name": "examples-windows-pvs-studio",
+      "displayName": "Examples PVS-Studio",
+      "description": "Build Examples with MSVC compiler and PVS-Studio static analysis enabled",
+      "configurePreset": "examples-windows-pvs-studio",
+      "configuration": "Debug",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "stringpy", "examples", "pvs_analysis" ]
+    },
+    {
+      "name": "examples-windows-clang-tidy",
+      "displayName": "Examples Clang-Tidy",
+      "description": "Build Examples with Clang-CL compiler and Clang-Tidy static analysis enabled",
+      "configurePreset": "examples-windows-clang-tidy",
+      "configuration": "Debug",
+      "inherits": [ "base", "windows" ],
+      "targets": [ "stringpy", "examples" ]
+    },
+    {
+      "name": "examples-linux",
+      "displayName": "Examples Release",
+      "description": "Build examples of using the StringPy library",
+      "configurePreset": "examples-linux",
+      "configuration": "Release",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "examples" ]
+    },
+    {
+      "name": "examples-linux-cppcheck",
+      "displayName": "Examples Cppcheck",
+      "description": "Build Examples with GCC compiler and Cppcheck static analysis enabled",
+      "configurePreset": "examples-linux-cppcheck",
+      "configuration": "Debug",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy", "examples" ]
+    },
+    {
+      "name": "examples-linux-pvs-studio",
+      "displayName": "Examples PVS-Studio",
+      "description": "Build Examples with GCC compiler and PVS-Studio static analysis enabled",
+      "configurePreset": "examples-linux-pvs-studio",
+      "configuration": "Debug",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy", "examples", "pvs_analysis" ]
+    },
+    {
+      "name": "examples-linux-clang-tidy",
+      "displayName": "Examples Clang-Tidy",
+      "description": "Build Examples with Clang compiler and Clang-Tidy static analysis enabled",
+      "configurePreset": "examples-linux-clang-tidy",
+      "configuration": "Debug",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy", "examples" ]
+    },
+    {
+      "name": "examples-linux-iwyu",
+      "displayName": "Examples IWYU",
+      "description": "Build Examples with Clang compiler and Include What You Use static analysis enabled",
+      "configurePreset": "examples-linux-iwyu",
+      "configuration": "Debug",
+      "inherits": [ "base", "linux" ],
+      "targets": [ "stringpy", "examples" ]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "base",
+      "description": "Base test preset with common settings and options",
+      "configuration": "Release",
+      "output": {
+        "verbosity": "default",
+        "shortProgress": true,
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true,
+        "timeout": 10
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows",
+      "description": "Testing on Windows systems",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "hidden": true
+    },
+    {
+      "name": "linux",
+      "description": "Testing on Linux systems",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "hidden": true
+    },
+    {
+      "name": "windows-all",
+      "displayName": "All Tests",
+      "description": "Run all tests",
+      "configurePreset": "windows-unit-tests",
+      "inherits": [ "base", "windows" ]
+    },
+    {
+      "name": "linux-all",
+      "displayName": "All Tests",
+      "description": "Run all tests",
+      "configurePreset": "linux-unit-tests",
+      "inherits": [ "base", "linux" ]
+    }
+  ]
+}
