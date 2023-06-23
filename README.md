@@ -6,6 +6,13 @@
   📚 A C++17 string manipulation library
 </h1>
 
+<div align="center">
+
+  <a href="https://github.com/hun1er/stringpy/releases/latest">![Release](https://img.shields.io/github/v/release/hun1er/stringpy)</a>
+  <a href="https://github.com/hun1er/stringpy/blob/main/LICENSE">![License](https://img.shields.io/github/license/hun1er/stringpy)</a>
+
+</div>
+
 Provides a set of string manipulation functions, many of which are similar to Python string methods.
 
 ## 🌟 Features
@@ -37,7 +44,29 @@ This library is completely self-contained and does not have any external depende
 
 ## 💻 Usage
 
-To use this library in your project, simply include the header file and call the desired functions. For example:
+There are several ways to include StringPy in your project, such as adding it as a submodule, manually copying the files, or compiling and installing the library.
+
+However, one of the easiest approaches is to use [CMake FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html). To do this, add the following lines to your CMakeLists.txt file:
+
+```cmake
+include(FetchContent)
+
+FetchContent_Declare(
+  StringPy
+  GIT_REPOSITORY https://github.com/hun1er/stringpy.git
+  GIT_TAG        v1.0.0
+)
+
+FetchContent_MakeAvailable(StringPy)
+```
+
+Then you can use the targets and functions of StringPy in other CMakeLists.txt files in your project. For example:
+
+```cmake
+target_link_libraries(my_target PRIVATE StringPy::stringpy)
+```
+
+Once you have included StringPy in your project, you can use it by including the header files and calling the desired functions. For example:
 
 ```cpp
 #include <stringpy/title.hpp>
