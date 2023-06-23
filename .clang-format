@@ -92,7 +92,7 @@ IndentPPDirectives: BeforeHash
 #IndentRequiresClause: false
 IndentWidth: 4
 IndentWrappedFunctionNames: true
-InsertBraces: true
+#InsertBraces: true
 InsertTrailingCommas: None
 KeepEmptyLinesAtTheStartOfBlocks: false
 LambdaBodyIndentation: Signature
