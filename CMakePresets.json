@@ -40,6 +40,7 @@
         "STRINGPY_BUILD_DOCS": "OFF",
         "STRINGPY_BUILD_EXAMPLES": "OFF",
         "STRINGPY_BUILD_TESTS": "OFF",
+        "STRINGPY_CODE_COVERAGE": "OFF",
         "STRINGPY_SYSTEM_HEADERS": "ON"
       },
       "hidden": true

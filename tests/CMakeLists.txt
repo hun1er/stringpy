@@ -43,5 +43,9 @@ target_link_libraries("${PROJECT_NAME}"
     "GTest::gtest_main"
 )
 
+if(${PNAME_UPPER}_CODE_COVERAGE)
+  generate_coverage_target("${PROJECT_NAME}")
+endif()
+
 # Register tests
 gtest_discover_tests("${PROJECT_NAME}")

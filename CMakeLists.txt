@@ -16,10 +16,11 @@ project(        "StringPy"
 #-------------------------------------------------------------------------------
 
 # STRINGPY_SHARED_LIBS option (undefined by default) can be used to force shared/static build.
-option(STRINGPY_INSTALL         "Generate install target."  ${PROJECT_IS_TOP_LEVEL})
-option(STRINGPY_BUILD_DOCS      "Generate documentation."   ${PROJECT_IS_TOP_LEVEL})
-option(STRINGPY_BUILD_EXAMPLES  "Build usage examples."     ${PROJECT_IS_TOP_LEVEL})
-option(STRINGPY_BUILD_TESTS     "Build unit tests."         ${PROJECT_IS_TOP_LEVEL})
+option(STRINGPY_INSTALL         "Generate install target."                              ${PROJECT_IS_TOP_LEVEL})
+option(STRINGPY_BUILD_DOCS      "Generate documentation."                               ${PROJECT_IS_TOP_LEVEL})
+option(STRINGPY_BUILD_EXAMPLES  "Build usage examples."                                 ${PROJECT_IS_TOP_LEVEL})
+option(STRINGPY_BUILD_TESTS     "Build unit tests."                                     ${PROJECT_IS_TOP_LEVEL})
+option(STRINGPY_CODE_COVERAGE   "Generate a coverage target using LCOV and genhtml."    ${PROJECT_IS_TOP_LEVEL})
 option(STRINGPY_SYSTEM_HEADERS  "Treat headers as system headers to suppress warnings." ON)
 
 if(DEFINED STRINGPY_SHARED_LIBS)
@@ -64,6 +65,7 @@ include(FetchContent)
 include(GenerateExportHeader)
 include("cmake/Install.cmake")
 include("cmake/Doxygen.cmake")
+include("cmake/Coverage.cmake")
 include("cmake/GoogleTest.cmake")
 include("cmake/ClangFormat.cmake")
 
@@ -181,6 +183,20 @@ if(${PNAME_UPPER}_BUILD_EXAMPLES)
 endif()
 
 if(${PNAME_UPPER}_BUILD_TESTS)
+  if(${PNAME_UPPER}_CODE_COVERAGE)
+    if(PROJECT_IS_TOP_LEVEL)
+      set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "The build type is set to Debug" FORCE)
+    endif()
+
+    target_link_options("${PNAME_LOWER}" PUBLIC "--coverage")
+    target_compile_options("${PNAME_LOWER}" PRIVATE "-O0" "-g" "--coverage")
+
+    add_custom_command(TARGET "${PNAME_LOWER}" PRE_BUILD COMMAND
+      find ${CMAKE_BINARY_DIR} -type f
+      -name '*.gcda' -exec rm {} +
+    )
+  endif()
+
   enable_testing()
   add_subdirectory("tests")
 endif()
