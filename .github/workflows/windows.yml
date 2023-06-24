@@ -1,0 +1,39 @@
+name: Windows
+
+on:
+  push:
+    branches: ["main"]
+
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+env:
+  CPU_CORES: 2
+  VSCVARS_PATH: 'C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat'
+
+jobs:
+  build:
+    name: Build on Windows
+    runs-on: "windows-latest"
+
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build using CMake
+        run: |
+          call "${{ env.VSCVARS_PATH }}"
+          cmake --preset windows-unit-tests
+          cmake --build --preset windows-unit-tests --parallel ${{ env.CPU_CORES }}
+
+      - name: Run unit tests
+        run: ctest --preset windows-all --parallel ${{ env.CPU_CORES }}
