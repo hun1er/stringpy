@@ -1,0 +1,49 @@
+name: Linux
+
+on:
+  push:
+    branches: ["main"]
+
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+env:
+  CPU_CORES: 2
+
+jobs:
+  build:
+    name: Build on Linux
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Build using CMake
+        run: |
+          cmake --preset linux-unit-tests
+          cmake --build --preset linux-unit-tests --parallel ${{ env.CPU_CORES }}
+
+      - name: Run unit tests
+        run: ctest --preset linux-all --parallel ${{ env.CPU_CORES }}
+
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1
+
+      - name: Generate test coverage reports
+        run: |
+          cmake --preset linux-unit-tests -D STRINGPY_CODE_COVERAGE=ON
+          cmake --build --preset linux-unit-tests --target coverage --parallel ${{ env.CPU_CORES }}
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./build/linux-unit-tests/filtered_coverage.info
+          flags: unittests
+          fail_ci_if_error: true
