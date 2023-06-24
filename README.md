@@ -9,6 +9,7 @@
 <div align="center">
 
   <a href="https://github.com/hun1er/stringpy/releases/latest">![Release](https://img.shields.io/github/v/release/hun1er/stringpy)</a>
+  <a href="https://codecov.io/gh/hun1er/stringpy">![codecov](https://codecov.io/gh/hun1er/stringpy/branch/main/graph/badge.svg?token=193KW4WRIM)</a>
   <a href="https://github.com/hun1er/stringpy/blob/main/LICENSE">![License](https://img.shields.io/github/license/hun1er/stringpy)</a>
 
 </div>
@@ -69,28 +70,13 @@ target_link_libraries(my_target PRIVATE StringPy::stringpy)
 Once you have included StringPy in your project, you can use it by including the header files and calling the desired functions. For example:
 
 ```cpp
-#include <stringpy/title.hpp>
+#include <stringpy/stringpy.hpp>
 
 int main()
 {
     std::string str = "hello, world!";
     std::string result = strpy::title(str);
     std::cout << result << std::endl; // prints "Hello, World!"
-
-    return 0;
-}
-```
-
-Or like this:
-
-```cpp
-#include <stringpy/stringpy.hpp>
-
-int main()
-{
-    std::string str = "hello, world!";
-    bool result = strpy::ends_with_icase(str, "WORLD!");
-    std::cout << strpy::to_string(result) << '\n'; // prints "true"
 
     return 0;
 }
