@@ -81,7 +81,6 @@ set(EXPORT_HEADER "${PROJECT_BINARY_DIR}/include/${PNAME_LOWER}/export.hpp")
 generate_export_header("${PNAME_LOWER}" EXPORT_FILE_NAME "${EXPORT_HEADER}")
 
 set(PUBLIC_HEADERS
-  "${EXPORT_HEADER}"
   "include/${PNAME_LOWER}/capitalize.hpp"
   "include/${PNAME_LOWER}/center.hpp"
   "include/${PNAME_LOWER}/const.hpp"
@@ -129,8 +128,9 @@ set(SOURCES
   "src/translate.cpp"
 )
 
+list(APPEND PUBLIC_HEADERS "${EXPORT_HEADER}")
 source_group(TREE "${PROJECT_SOURCE_DIR}" FILES ${SOURCES})
-target_sources("${PNAME_LOWER}" PRIVATE ${SOURCES})
+target_sources("${PNAME_LOWER}" PRIVATE "${EXPORT_HEADER}" ${SOURCES})
 
 set_target_properties("${PNAME_LOWER}" PROPERTIES
   PUBLIC_HEADER
