@@ -55,7 +55,7 @@ include(FetchContent)
 FetchContent_Declare(
   StringPy
   GIT_REPOSITORY https://github.com/hun1er/stringpy.git
-  GIT_TAG        v1.0.1
+  GIT_TAG        v1.0.2
 )
 
 FetchContent_MakeAvailable(StringPy)

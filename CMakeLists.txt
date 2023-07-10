@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.21...3.26)
 #-------------------------------------------------------------------------------
 
 project(        "StringPy"
-  VERSION       "1.0.0"
+  VERSION       "1.0.2"
   DESCRIPTION   "A C++17 library providing a set of string manipulation functions, many of which are similar to Python string methods."
   HOMEPAGE_URL  "https://github.com/hun1er/stringpy"
   LANGUAGES     "CXX"
