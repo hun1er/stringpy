@@ -62,7 +62,7 @@ set(DOXYGEN_USE_PDFLATEX YES)
 # Enable or disable verbatim copy of header files for classes with includes.
 set(DOXYGEN_VERBATIM_HEADERS NO)
 
-macro(use_doxygen_awesome)
+macro(strpy_use_doxygen_awesome)
   # Fetch and make available DoxygenAwesome content
   FetchContent_MakeAvailable(DoxygenAwesome)
 
@@ -88,9 +88,9 @@ macro(use_doxygen_awesome)
   set(DOXYGEN_HTML_EXTRA_STYLESHEET "${doxygenawesome_SOURCE_DIR}/doxygen-awesome.css")
 endmacro()
 
-macro(use_doxygen_awesome_sidebar_only_theme)
+macro(strpy_use_doxygen_awesome_sidebar_only_theme)
   # Call macro
-  use_doxygen_awesome()
+  strpy_use_doxygen_awesome()
 
   # Enable treeview generation
   set(DOXYGEN_GENERATE_TREEVIEW YES)

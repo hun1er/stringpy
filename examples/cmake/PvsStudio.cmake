@@ -32,7 +32,7 @@ FetchContent_Declare(
 # @param CXX_FLAGS [optional] The C++ compiler flags to use for PVS-Studio.
 # @param ARGS [optional] Additional arguments to pass to the PVS-Studio analyzer.
 # @param CONVERTER_ARGS [optional] Additional arguments to pass to the PVS-Studio log converter.
-function(enable_pvs_studio)
+function(strpy_enable_pvs_studio)
   # Parse the arguments passed to the function
   cmake_parse_arguments("PVS" ""
     "PLATFORM;PREPROCESSOR;CONFIG;SUPPRESS_BASE"

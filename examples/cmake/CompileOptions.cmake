@@ -2,7 +2,7 @@
 #
 # @param compiler_id The ID of the compiler to include options for.
 # @param lang The language to include options for.
-function(include_compiler_options compiler_id lang)
+function(strpy_include_compiler_options compiler_id lang)
   # Return early if the compiler ID is not provided or is empty.
   if(NOT compiler_id OR "${compiler_id}" STREQUAL "")
     return()

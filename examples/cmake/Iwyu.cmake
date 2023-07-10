@@ -8,7 +8,7 @@
 # @param UPDATE_COMMENTS [optional] If set, update comments in IWYU analysis.
 # @param NO_COMMENTS [optional] If set, do not include comments in IWYU analysis.
 # @param VERBOSE [optional] The verbosity level to use for IWYU.
-function(enable_iwyu)
+function(strpy_enable_iwyu)
   # Parse the arguments passed to the function
   cmake_parse_arguments("IWYU" ""
     "TRANSITIVE_INCLUDES_ONLY;MAX_LINE_LENGTH;COMMENT_STYLE;UPDATE_COMMENTS;NO_COMMENTS;VERBOSE"

@@ -3,7 +3,7 @@
 # @param TARGETS The list of target names to enable Clang-Tidy for.
 # @param OPTIONS [optional] The options to pass to Clang-Tidy.
 # @param EXTRA_ARGS [optional] The additional arguments to append to the compiler command line.
-function(enable_clang_tidy)
+function(strpy_enable_clang_tidy)
   # Parse the arguments passed to the function
   cmake_parse_arguments("CT" "" "" "TARGETS;OPTIONS;EXTRA_ARGS" ${ARGN})
 

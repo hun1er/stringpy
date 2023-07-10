@@ -174,7 +174,7 @@ if(${PNAME_UPPER}_BUILD_DOCS)
       "mscgen"
   )
 
-  use_doxygen_awesome_sidebar_only_theme()
+  strpy_use_doxygen_awesome_sidebar_only_theme()
   doxygen_add_docs("${PNAME_LOWER}_docs" "include")
 endif()
 
@@ -206,7 +206,7 @@ endif()
 #-------------------------------------------------------------------------------
 
 if(${PNAME_UPPER}_INSTALL AND NOT CMAKE_SKIP_INSTALL_RULES)
-  generate_install_target()
+  strpy_generate_install_target()
 endif()
 
 #-------------------------------------------------------------------------------
@@ -215,5 +215,5 @@ endif()
 
 if(PROJECT_IS_TOP_LEVEL)
   # Run Clang-Format on the source files of a target before building it.
-  format_target_sources(TARGETS "${PNAME_LOWER}")
+  strpy_format_target_sources(TARGETS "${PNAME_LOWER}")
 endif()

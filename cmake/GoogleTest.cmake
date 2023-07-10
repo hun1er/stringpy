@@ -12,7 +12,7 @@ FetchContent_Declare(
 # First checks if GTest is already installed on the system.
 # If GTest is not found on the system, calls FetchContent_MakeAvailable(GoogleTest)
 # to fetch GTest from the repository and make it available for use.
-function(fetch_gtest)
+function(strpy_fetch_gtest)
   find_package(GTest)
 
   if(NOT GTest_FOUND)

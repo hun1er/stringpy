@@ -3,7 +3,7 @@
 # @param TARGETS The list of target names to run Clang-Format on.
 # @param STYLE [optional] The coding style option to pass to Clang-Format.
 # @param WORKING_DIRECTORY [optional] The working directory for the Clang-Format.
-function(format_target_sources)
+function(strpy_format_target_sources)
   # Parse the arguments passed to the function
   cmake_parse_arguments("FTS" "" "STYLE;WORKING_DIRECTORY" "TARGETS" ${ARGN})
 

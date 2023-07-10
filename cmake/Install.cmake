@@ -10,7 +10,7 @@ if(NOT DEFINED ${PNAME_UPPER}_INSTALL_CMAKEDIR)
 endif()
 
 # Generates an install target for the project.
-function(generate_install_target)
+function(strpy_generate_install_target)
   set(rt_component "${PNAME_LOWER}")
   set(dev_component "${rt_component}-dev")
   set(targets_export "${PNAME_CAPITALIZED}Targets")

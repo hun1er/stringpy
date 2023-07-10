@@ -89,22 +89,22 @@ add_dependencies("examples" ${TARGET_LIST})
 
 if(${PNAME_UPPER}_ENABLE_CLANG_TIDY)
   # Enable Clang-Tidy for "stringpy" and all other targets in the current directory
-  enable_clang_tidy(TARGETS "stringpy" ${TARGET_LIST})
+  strpy_enable_clang_tidy(TARGETS "stringpy" ${TARGET_LIST})
 endif()
 
 if(${PNAME_UPPER}_ENABLE_CPPCHECK)
   # Enable Cppcheck for "stringpy" and all other targets in the current directory
-  enable_cppcheck(TARGETS "stringpy" ${TARGET_LIST})
+  strpy_enable_cppcheck(TARGETS "stringpy" ${TARGET_LIST})
 endif()
 
 if(${PNAME_UPPER}_ENABLE_PVS_STUDIO)
   # Enable PVS-Studio for "stringpy" and all other targets in the current directory
-  enable_pvs_studio(TARGETS "stringpy" ${TARGET_LIST})
+  strpy_enable_pvs_studio(TARGETS "stringpy" ${TARGET_LIST})
 endif()
 
 if(${PNAME_UPPER}_ENABLE_IWYU)
   # Enable Include What You Use for "stringpy" and all other targets in the current directory
-  enable_iwyu(TARGETS "stringpy" ${TARGET_LIST})
+  strpy_enable_iwyu(TARGETS "stringpy" ${TARGET_LIST})
 endif()
 
 #-------------------------------------------------------------------------------
@@ -113,5 +113,5 @@ endif()
 
 if(PROJECT_IS_TOP_LEVEL)
   # Run Clang-Format on the source files of a target before building it.
-  format_target_sources(TARGETS ${TARGET_LIST})
+  strpy_format_target_sources(TARGETS ${TARGET_LIST})
 endif()

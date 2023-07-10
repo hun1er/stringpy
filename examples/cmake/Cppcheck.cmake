@@ -10,7 +10,7 @@
 # @param QUIET [optional] Enable quiet mode in Cppcheck.
 # @param VERBOSE [optional] Enable verbose mode in Cppcheck.
 # @param CHECK_CONFIG [optional] Check the configuration in Cppcheck.
-function(enable_cppcheck)
+function(strpy_enable_cppcheck)
   # Parse the arguments passed to the function
   cmake_parse_arguments("CPPC" ""
     "PLATFORM;ENABLE;DISABLE;LIBRARY;INCONCLUSIVE;CTU_DEPTH;QUIET;VERBOSE;CHECK_CONFIG"
@@ -43,9 +43,9 @@ function(enable_cppcheck)
     set(CPPC_LIBRARY "boost,gnu,googletest,libcurl,posix,qt,sdl,std,windows,zlib")
   endif()
 
-  # If CTU_DEPTH is not set, set it to "6"
+  # If CTU_DEPTH is not set, set it to "16"
   if(NOT DEFINED CPPC_CTU_DEPTH)
-    set(CPPC_CTU_DEPTH "6")
+    set(CPPC_CTU_DEPTH "16")
   endif()
 
   # If QUIET is not set, set it to ON
@@ -74,9 +74,15 @@ function(enable_cppcheck)
     "--library=${CPPC_LIBRARY}" # Load file <cfg> that contains information about types and functions.
     "--max-configs=50" # Maximum number of configurations to check in a file before skipping it.
     "--max-ctu-depth=${CPPC_CTU_DEPTH}" # Max depth in whole program analysis.
-    "--suppressions-list=${CMAKE_CURRENT_SOURCE_DIR}/.cppcheck_suppressions" # Suppress warnings listed in the file.
     "--inline-suppr" # Enable inline suppressions.
   )
+
+  # If the suppression file exists, add it to the cppcheck command
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.cppcheck_suppressions")
+    list(APPEND cppcheck_exe "--suppressions-list=${CMAKE_CURRENT_SOURCE_DIR}/.cppcheck_suppressions")
+  elseif(EXISTS "${CMAKE_SOURCE_DIR}/.cppcheck_suppressions")
+    list(APPEND cppcheck_exe "--suppressions-list=${CMAKE_SOURCE_DIR}/.cppcheck_suppressions")
+  endif()
 
   # Set the source directory
   set(src_dir "${PROJECT_SOURCE_DIR}/src")

@@ -35,7 +35,7 @@ add_executable("${PROJECT_NAME}"
 )
 
 # Fetch GTest and link it to the test executable
-fetch_gtest()
+strpy_fetch_gtest()
 
 target_link_libraries("${PROJECT_NAME}"
   PRIVATE
@@ -44,7 +44,7 @@ target_link_libraries("${PROJECT_NAME}"
 )
 
 if(${PNAME_UPPER}_CODE_COVERAGE)
-  generate_coverage_target("${PROJECT_NAME}")
+  strpy_generate_coverage_target("${PROJECT_NAME}")
 endif()
 
 # Register tests

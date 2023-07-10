@@ -7,7 +7,7 @@ set(FILTERED_COVERAGE_INFO "filtered_coverage.info")
 # Generates a coverage target for the specified target using LCOV and genhtml.
 #
 # @param target The name of the target to generate a coverage target for.
-function(generate_coverage_target target)
+function(strpy_generate_coverage_target target)
   # Find the LCOV and genhtml programs
   find_program(LCOV_PATH "lcov" REQUIRED)
   find_program(GENHTML_PATH "genhtml" REQUIRED)

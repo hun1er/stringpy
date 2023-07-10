@@ -139,5 +139,5 @@ endif()
 # Compiler-Specific Options
 #-------------------------------------------------------------------------------
 
-include_compiler_options("${CMAKE_C_COMPILER_ID}" "C")
-include_compiler_options("${CMAKE_CXX_COMPILER_ID}" "CXX")
+strpy_include_compiler_options("${CMAKE_C_COMPILER_ID}" "C")
+strpy_include_compiler_options("${CMAKE_CXX_COMPILER_ID}" "CXX")
